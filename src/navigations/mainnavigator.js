@@ -31,19 +31,11 @@ export default function MainNavigator() {
             }
         >
         <Drawer.Screen 
-        name='BlueTracker' 
-        component={Home} />
+          name='BlueTracker' 
+          component={Home}/>
         </Drawer.Navigator> 
 
       </NavigationContainer>
     );
 
   }
-
-  const styles = StyleSheet.create({
-    button: {
-      alignItems: "center",
-      padding: 10
-    }
-  });
-  

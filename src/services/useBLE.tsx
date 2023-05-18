@@ -8,6 +8,7 @@ import {
   Device,
 } from "react-native-ble-plx";
 
+
 import * as ExpoDevice from "expo-device";
 
 
@@ -20,8 +21,6 @@ interface BluetoothLowEnergyApi {
 function useBLE(): BluetoothLowEnergyApi {
   const bleManager = useMemo(() => new BleManager(), []);
   const [allDevices, setAllDevices] = useState<Device[]>([]);
-  const [connectedDevice, setConnectedDevice] = useState<Device | null>(null);
-  const [heartRate, setHeartRate] = useState<number>(0);
 
   const requestAndroid31Permissions = async () => {
     const bluetoothScanPermission = await PermissionsAndroid.request(
@@ -58,7 +57,9 @@ function useBLE(): BluetoothLowEnergyApi {
 
   const requestPermissions = async () => {
     if (Platform.OS === "android") {
+      console.log("requestPermissions for android OS2");
       if ((ExpoDevice.platformApiLevel ?? -1) < 31) {
+        console.log("platform < 31");
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
           {
@@ -69,9 +70,12 @@ function useBLE(): BluetoothLowEnergyApi {
         );
         return granted === PermissionsAndroid.RESULTS.GRANTED;
       } else {
+        console.log("platform 31");
+
         const isAndroid31PermissionsGranted =
           await requestAndroid31Permissions();
-
+          
+        console.log(isAndroid31PermissionsGranted);
         return isAndroid31PermissionsGranted;
       }
     } else {
@@ -87,7 +91,8 @@ function useBLE(): BluetoothLowEnergyApi {
       if (error) {
         console.log(error);
       }
-      if (device && device.name?.includes("CorSense")) {
+      console.log(device);
+      if (device) {
         setAllDevices((prevState: Device[]) => {
           if (!isDuplicteDevice(prevState, device)) {
             return [...prevState, device];

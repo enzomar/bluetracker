@@ -8,7 +8,7 @@ import MainNavigator from './src/navigations/mainnavigator';
 export default function App() {
   return (
     <ModalProvider>
-      <SafeAreaProvider>
+      <SafeAreaProvider >
         <MainNavigator></MainNavigator>
       </SafeAreaProvider>
     </ModalProvider>

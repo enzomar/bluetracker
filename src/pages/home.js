@@ -8,8 +8,15 @@ import useBLE from '../services/useBLE';
 
 export const Home = (props) => {
 
-
-  const DATA = [
+/*
+id
+name
+rssi
+mtu
+manufacturerData
+localName
+*/
+  const trackedDevices = [
     {
       title: 'First Item',
       mac: '01:00:0C:CC:CC:CC',
@@ -19,7 +26,7 @@ export const Home = (props) => {
     {
       title: 'Second Item',
       mac: '01:80:C2:00:00:00',
-      tracking: 'false',
+      tracking: false,
       distance: 5,
 
 
@@ -27,11 +34,13 @@ export const Home = (props) => {
     {
       title: 'Third Item',
       mac: '00-B0-D0-63-C2-26',
-      tracking: 'true',
+      tracking: true,
       distance: 20,
 
     },
   ];
+
+
 
   const {
     requestPermissions,
@@ -55,30 +64,35 @@ export const Home = (props) => {
 
 
   return (
-    <View style={styles.container}>
-        <View onStartShouldSetResponder={
-          () => props.navigation.navigate('MainNavigator')
-          }> 
-        <Text>BANNER</Text>
-
-        <DevicesList devices={DATA}></DevicesList>
-
-        <Button title="Discover Devices" onPress={discoverDevices} />
-        {allDevices.map((device)=> (
+    <View style={styles.container} >
+       <View style={styles.content}>
+          <Text>BANNER</Text>
+          
+          <DevicesList devices={trackedDevices}></DevicesList>
+          {allDevices.map((device)=> (
           <Text key={device.id}>{device.name}</Text>
-        ))}
+          ))}
+          </View>
+          <View style={styles.footer}>
+            <Button style={styles.footer} title="Discover Devices" onPress={discoverDevices} />
+          </View>
         </View>
-    </View>
+  
 
     );
   }
 
   const styles = StyleSheet.create({
-    screen: {
+    container: {
       flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: '#fff',
+      backgroundColor: '#ecf0f1',
+    },
+    content: {
+      flex: 1
+    },
+    footer: {
+      backgroundColor: "white",
+      padding: 3
     }
-  
   });
+  

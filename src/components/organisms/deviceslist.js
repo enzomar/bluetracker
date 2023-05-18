@@ -17,7 +17,6 @@ export const DevicesList = (props) => {
     const [tracked, setTracked] = useState([]);
     const [devices, setDevices] = useState(props.devices);
 
-
     const editModalDialog = useEditModalDialog();
 
     const updateTracking = (key, value) => {
@@ -68,7 +67,7 @@ export const DevicesList = (props) => {
 
           <TouchableOpacity
               style={[styles.Btn, styles.BtnRight]}
-              onPress={() => onTouchMe(data.item)}>
+              onPress={() => onTouchMe(rowMap, data.item.mac, data.item)}>
               <Text style={styles.backTextWhite}>View</Text>
           </TouchableOpacity>
       </View>
@@ -97,7 +96,6 @@ const editRow = (rowMap, rowKey, item) => {
         console.log(this);
     }
 };
-
 
 
 
@@ -132,12 +130,13 @@ const onRowDidOpen = rowKey => {
     console.log('This row opened', rowKey);
 };
 
-const onTouchMe = (item) => {
+const onTouchMe = (rowMap, rowKey, item) => {
     console.log('You touched me: '+item.mac);
     let lat = 45.2342;
     let lng = 23.33523;
     let url = "https://maps.google.com/?q="+lat+','+lng
-    Linking.openURL(url)
+    Linking.openURL(url);
+    closeRow(rowMap, rowKey);
 
 }
 

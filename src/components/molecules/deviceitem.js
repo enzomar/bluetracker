@@ -18,7 +18,7 @@ export const DeviceItem = (props: DeviceItemProps) => {
 
     return (
         
-        <View style={t ? o ? styles.containerTrackingOut : styles.containerTrackingIn : styles.container }>        
+        <View style={t ? ( o ? styles.containerTrackingOut : styles.containerTrackingIn) : styles.container }>        
              <View style={styles.containerLeft}>
                 <Text style={styles.name}>{props.item.title}</Text>
                 <Text style={styles.mac}>{props.item.mac}</Text>
